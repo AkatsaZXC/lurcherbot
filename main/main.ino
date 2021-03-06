@@ -2,7 +2,7 @@
 #include <WiFiClientSecure.h>
 #include <TelegramBot.h>
 
-int switch_pin = 2; //  Example
+int switch_pin = 14; //  Example
 
 //  WiFi and TelegramBot settings
 const char* ssid = "SSID";
