@@ -2,6 +2,8 @@
 #include <WiFiClientSecure.h>
 #include <TelegramBot.h>
 
+int switch_pin = 2; //  Example
+
 //  WiFi and TelegramBot settings
 const char* ssid = "SSID";
 const char* pass = "PASS";
@@ -42,6 +44,12 @@ void loop(){
     }else{
       Serial.println("Not connected to WiFi");
     }
+  }
+
+  int switch_value = digitalRead(switch_pin);
+
+  if(switch_value == HIGH){
+    bot.sendMessage(m.chat_id, "Door opened"); //  0 - closed, 1 - opened
   }
   
   
