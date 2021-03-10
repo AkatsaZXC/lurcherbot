@@ -23,6 +23,8 @@ void setup(){
   Serial.begin(115200);
   Serial.println();
 
+  pinMode(A0, OUTPUT);
+
   Serial.print("Connecting to WiFi");
 
   WiFi.begin(WIFI_SSID, WIFI_PASS);
@@ -36,6 +38,12 @@ void setup(){
   Serial.println(WiFi.localIP());
   Serial.println();
 
+  
+}
+
+void loop()
+{
+  int locker = analogRead(A0);
   smtp.debug(1); // 1- basic debug, 0 - no debug
 
   smtp.callback(smtpCallback);
@@ -54,12 +62,12 @@ void setup(){
   SMTP_Message message;
 
   //  Set the message headers
-  message.sender.name = "Name";
+  message.sender.name = "LurcherBot";
   message.sender.email = AUTHOR_EMAIL;
-  message.subject = "Subject";
-  message.addRecipient("Test", "someone_mail");
+  message.subject = "SOMEONE OPENED LOCKER";
+  message.addRecipient("Test", "Email");
 
-  message.text.content = "Pidoras";
+  message.text.content = "Someone opened your locker";
   
   message.text.charSet = "us-ascii";
 
@@ -72,13 +80,11 @@ void setup(){
   if (!smtp.connect(&session))
     return;
 
-  /* Start sending Email and close the session */
-  if (!MailClient.sendMail(&smtp, &message))
-    Serial.println("Error sending Email, " + smtp.errorReason());
-}
-
-void loop()
-{
+  if(locker > 500){
+    if (!MailClient.sendMail(&smtp, &message))
+      Serial.println("Error sending Email, " + smtp.errorReason());
+  }
+  delay(10000);
 }
 
 void smtpCallback(SMTP_Status status)
