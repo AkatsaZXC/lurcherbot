@@ -13,5 +13,5 @@ In the desired drawer, door or any other lockable place you install the sensor, 
 2. Download `ESP Core` following this link: `https://arduino.esp8266.com/stable/package_esp8266com_index.json`
 3. In Arduino IDE you should download `ESP_Mail_Server` library from libraries` manager
 4. Change your email address
-
+5. Change your `SSID` and `PASS`
 
